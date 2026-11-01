@@ -36,7 +36,7 @@ export class Produkt implements Comparable<Produkt>, Versendbar {
 
   // Vertrag 2: 400 Cent Grundgebuehr + 200 Cent je kg.
   versandkosten(): number {
-    return 0;
+    return 400 + 200 * this.gewichtKg;
   }
 
   toString(): string {
