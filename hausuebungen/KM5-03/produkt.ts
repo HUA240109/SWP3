@@ -1,11 +1,11 @@
-// HUE KM5-03 — Starter (rot). TODO-Markierungen sind die Teilaufgaben.
+// HUE KM5-03 - Loesung.
 
-// TODO 1 bleibt: der Vertrag sagt nur, DASS verglichen wird, nicht wie.
+// Vertrag 1: vergleichbar. Er sagt nur, DASS verglichen wird, nicht wie.
 export interface Comparable<T> {
-  compareTo(other: T): number; // < 0: kleiner · 0: gleich · > 0: groesser
+  compareTo(other: T): number; // < 0: kleiner, 0: gleich, > 0: groesser
 }
 
-// Der zweite, unabhaengige Vertrag: Produkt ist vergleichbar UND versendbar.
+// Vertrag 2: versendbar - unabhaengig von Comparable.
 export interface Versendbar {
   readonly id: string;
   versende(an: string): void;
@@ -14,7 +14,7 @@ export interface Versendbar {
 export class Produkt implements Comparable<Produkt>, Versendbar {
   readonly id: string;
   preis: number;
-  rabatt?: number;
+  rabatt?: number; // optional: nicht jedes Produkt hat einen
   private _status = "offen";
 
   constructor(id: string, preis: number, rabatt?: number) {
@@ -27,15 +27,17 @@ export class Produkt implements Comparable<Produkt>, Versendbar {
     return this._status;
   }
 
-  // TODO 1: nach Preis vergleichen (< 0 billiger, 0 gleich, > 0 teurer).
   compareTo(other: Produkt): number {
-    return 0;
+    // Die Umsetzung ist Privatsache des Produkts - der Vertrag bleibt gleich.
+    return this.preis - other.preis;
   }
 
-  // TODO 2: Status auf `versendet an ${an}` setzen und ein zweites
-  // Versenden mit throw ablehnen.
   versende(an: string): void {
-    this._status = an;
+    if (this._status !== "offen") {
+      throw new Error(`${this.id} ist bereits versendet an ${this._status}`);
+    }
+
+    this._status = `versendet an ${an}`;
   }
 
   istVerfuegbar(): boolean {
@@ -47,7 +49,7 @@ export class Produkt implements Comparable<Produkt>, Versendbar {
   }
 }
 
-// Die Funktion kennt nur den Vertrag — nicht die Klasse Produkt.
+// Die Funktion kennt nur den Vertrag - nicht die Klasse Produkt.
 export function groesstes<T extends Comparable<T>>(
   liste: T[],
 ): T | undefined {
