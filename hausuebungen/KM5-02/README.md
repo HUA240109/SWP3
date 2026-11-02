@@ -16,14 +16,14 @@ deno test          # erwartet: rot
 
 ## Teilaufgaben
 
-1. **Kapselung** — `kmStand` und `geschwindigkeit` werden privat
-   (`_kmStand`, `_geschwindigkeit`) und ueber Getter gelesen. Von aussen gibt
-   es **keinen** Setter fuer `kmStand`: nur `fahre()` darf ihn erhoehen.
+1. **Kapselung** — `kmStand` und `geschwindigkeit` werden privat (`_kmStand`,
+   `_geschwindigkeit`) und ueber Getter gelesen. Von aussen gibt es **keinen**
+   Setter fuer `kmStand`: nur `fahre()` darf ihn erhoehen.
 2. **Fail-Fast im Konstruktor** — ein negativer `kmStand` oder eine
-   `maxGeschwindigkeit` kleiner als `0` werden sofort mit `throw` abgelehnt,
-   mit einer Meldung, die `kmStand` bzw. `maxGeschwindigkeit` nennt.
-3. **Fail-Fast in `setGeschwindigkeit(v)`** — nur `0 <= v <= maxGeschwindigkeit`;
-   die Meldung nennt `Geschwindigkeit`.
+   `maxGeschwindigkeit` kleiner als `0` werden sofort mit `throw` abgelehnt, mit
+   einer Meldung, die `kmStand` bzw. `maxGeschwindigkeit` nennt.
+3. **Fail-Fast in `setGeschwindigkeit(v)`** — nur
+   `0 <= v <= maxGeschwindigkeit`; die Meldung nennt `Geschwindigkeit`.
 4. **Fail-Fast in `fahre(stunden)`** — negative Stunden sind verboten (ein
    Fahrzeug faehrt nicht rueckwaerts).
 5. **Neu geboren heisst steht still** — `geschwindigkeit` startet bei `0`.
